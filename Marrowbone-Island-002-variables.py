@@ -1,3 +1,12 @@
+"""
+Marrowbone Island
+University of Washington Youth & Teen Programs
+
+Day 2: Variables & Input
+
+Instructor: Meghan Thréinfhir
+"""
+
 #variables
 #datatypes
 #input
