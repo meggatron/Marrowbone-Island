@@ -7,4 +7,4 @@ Day 1: pseudocode
 Instructor: Meghan Thréinfhir
 """
 
-#psudocode
+#psuedocode
