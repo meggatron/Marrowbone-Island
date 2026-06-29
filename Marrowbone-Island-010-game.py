@@ -176,7 +176,7 @@ def tunnel():
     if random.choice([True, False]):
         print("He grunts and steps aside, vanishing into the shadows.")
     else:
-        print("He growls. 'Find the old cedar.' he says. You back away slowly.")
+        print("He growls. 'Find the old cedar. No treasure without the map.' he says. You back away slowly.")
     print("You can go west to return to the trail.")
     move = input("Where do you go? > ").lower()
     if move in ["go west", "west"]:
