@@ -1,5 +1,13 @@
-#algorithms
-#debugging
+"""
+Marrowbone Island
+University of Washington Youth & Teen Programs
+
+Day 4: algorithms & debugging
+
+Instructor: Meghan Thréinfhir
+"""
+
+
 
 import random
 import time

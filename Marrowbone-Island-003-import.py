@@ -1,3 +1,8 @@
+"""
+Marrowbone Island
+University of Washington Youth & Teen Programs
+
+Day 3:
 #if statements
 #logical operators
 #for loop
@@ -5,6 +10,9 @@
 #lists
 #solve a logic problem
 #import external library
+
+Instructor: Meghan Thréinfhir
+"""
 
 import random
 import time

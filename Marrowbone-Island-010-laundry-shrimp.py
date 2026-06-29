@@ -1,4 +1,11 @@
-# easter egg
+"""
+Marrowbone Island
+University of Washington Youth & Teen Programs
+
+Day 10: The Laundry Room Shrimp, easter eggs
+
+Instructor: Meghan Thréinfhir
+"""
 
 import random
 import time
@@ -23,14 +30,17 @@ def log_room(location):
 
 def dock():
     log_room("dock")
-    print(f"\nYou are on a {random.choice(weather)} dock. Paths lead north to a trail and west to a boathouse.")
+    print(
+        f"\nYou are on a {random.choice(weather)} dock. Paths lead north to a trail, west to a boathouse, and east to some tidepools.")
     move = input("Where do you go? > ").lower()
-    if move == "go north" or move == "north":
+    if move in ["go north", "north"]:
         return 'trail'
-    elif move == "go west" or move == "west":
+    elif move in ["go west", "west"]:
         return 'boathouse'
+    elif move in ["go east", "east"]:
+        return 'tidepools'
     else:
-        print("Try typing 'go north' or 'go west'.")
+        print("Try 'north', 'west', or 'east'.")
         return 'dock'
 
 
@@ -39,24 +49,27 @@ def trail():
     print("\nYou begin walking up the trail.")
     for step in range(1, 4):
         print(f"Step {step}...")
-        time.sleep(0.1)
+        time.sleep(0.5)
     print(
-        f"You are on a {random.choice(weather)} trail. Paths lead west into a forest, north to a cliff, or south back to the dock.")
+        f"You are on a {random.choice(weather)} trail. Paths lead west to a forest, north to a cliff, south back to the dock, or east into a dark tunnel.")
     move = input("Where do you go? > ").lower()
-    if move == "go west" or move == "west":
+    if move in ["go west", "west"]:
         return 'forest'
-    elif move == "go north" or move == "north":
+    elif move in ["go north", "north"]:
         return 'cliff'
-    elif move == "go south" or move == "south":
+    elif move in ["go south", "south"]:
         return 'dock'
+    elif move in ["go east", "east"]:
+        return 'tunnel'
     else:
-        print("Try 'west', 'north', or 'south'.")
+        print("Try 'west', 'north', 'south', or 'east'.")
         return 'trail'
 
 
 def forest():
     log_room("forest")
-    print(f"\nYou step into a {random.choice(weather)} forest. The trees are thick and mossy.")
+    print(
+        f"\nYou step into a {random.choice(weather)} forest. The trees are thick and mossy. You can go west into a grove or east back to the trail.")
     if "map" not in inventory:
         take = input("You find a crumpled old map. Take it? (yes/no) > ").lower()
         if take == "yes":
@@ -66,41 +79,40 @@ def forest():
             print("You leave the map in the tree hollow.")
     else:
         print("The forest is quiet. You've already taken the map.")
-
-    print("You can go east to return to the trail.")
     move = input("Where do you go? > ").lower()
-    if move == "go east" or move == "east":
+    if move in ["go west", "west"]:
+        return 'grove'
+    elif move in ["go east", "east"]:
         return 'trail'
     else:
-        print("Try typing 'east'.")
+        print("Try 'west' or 'east'.")
         return 'forest'
 
 
 def cliff():
+    global player_name
     log_room("cliff")
-    print(
-        f"\nYou reach the edge of a {random.choice(weather)} cliff. A strange chest is buried here, half-covered in moss and time.")
-
+    print(f"\nYou reach the edge of a {random.choice(weather)} cliff. A strange chest is buried here.")
     if "map" in inventory:
         time.sleep(1)
         print("You study the map one last time. The X marks a hollow beneath the old cedar.")
-        time.sleep(1)
+        time.sleep(2)
         print("Digging carefully, your fingers strike metal.")
-        time.sleep(1)
+        time.sleep(2)
         print(
             "You pull free a rusted chest. Inside: silver coins, carved stones, and a locket still warm to the touch.")
-        time.sleep(1)
-        print("No one will believe what you’ve found here.")
-        time.sleep(1)
+        time.sleep(3)
+        print(f"No one will believe what you’ve found here, {player_name}.")
+        time.sleep(2)
         print("But the island remembers.")
-        time.sleep(1)
-        print(f"Congratulations {player_name}, you win Marrowbone Island! ")
+        time.sleep(2)
+        print(f"Congratulations {player_name}, you win Marrowbone Island!")
         return 'end'
     else:
         print("The chest is here... but without the map, its meaning is lost.")
         print("You can go south to return to the trail.")
         move = input("Where do you go? > ").lower()
-        if move == "go south" or move == "south":
+        if move in ["go south", "south"]:
             return 'trail'
         else:
             print("Try typing 'south'.")
@@ -127,7 +139,6 @@ def laundry_room():
     time.sleep(2)
     print("He turns to you, antennae twitching. 'Would you like a poem?' he asks.")
     time.sleep(1)
-
     choice = input("Do you give the shrimp three words? (yes/no) > ").lower()
     if choice == "yes":
         noun = input("Give the shrimp a noun > ")
@@ -144,15 +155,61 @@ def laundry_room():
     else:
         print("The shrimp nods solemnly and returns to his towels.")
         time.sleep(1)
-    # lore
-    print("\nAs you turn to leave, the shrimp whispers:")
-    time.sleep(2)
-    print('"The troll fears mirrors. The orca watches from below. The giant footprints in the grove are fresh."')
-    time.sleep(3)
-
     print("You leave the laundry room.")
     return 'boathouse'
 
+
+def tidepools():
+    log_room("tidepools")
+    print("\nYou scramble over slippery rocks at the tidepools. Barnacles crunch underfoot.")
+    if random.choice([True, False]):
+        print("An orca surfaces nearby, stares at you silently, then vanishes beneath the waves.")
+    else:
+        print("Just sea stars, urchins, and silence.")
+    print("You can return west to the dock.")
+    move = input("Where do you go? > ").lower()
+    if move in ["go west", "west"]:
+        return 'dock'
+    else:
+        print("Try typing 'west'.")
+        return 'tidepools'
+
+
+def grove():
+    log_room("grove")
+    print("\nYou enter a quiet grove. Ferns blanket the ground.")
+    if random.choice([True, False]):
+        print("You see massive footprints in the mud... too big to be human. They vanish into the underbrush.")
+    else:
+        print("Birdsong. Breeze. Just you and the trees.")
+    print("You can go east to return to the forest.")
+    move = input("Where do you go? > ").lower()
+    if move in ["go east", "east"]:
+        return 'forest'
+    else:
+        print("Try typing 'east'.")
+        return 'grove'
+
+
+def tunnel():
+    log_room("tunnel")
+    print("\nYou duck into a dark tunnel carved into the hillside.")
+    print("A troll blocks the way. He squints at you.")
+    if random.choice([True, False]):
+        print("He grunts and steps aside, vanishing into the shadows.")
+    else:
+        print("He growls. 'Find the old cedar. No treasure without the map.' he says. You back away slowly.")
+    print("You can go west to return to the trail.")
+    move = input("Where do you go? > ").lower()
+    if move in ["go west", "west"]:
+        return 'trail'
+    else:
+        print("Try typing 'west'.")
+        return 'tunnel'
+
+
+player_name = intro()
+current_location = 'dock'
 
 locations = {
     'dock': dock,
@@ -160,11 +217,12 @@ locations = {
     'forest': forest,
     'cliff': cliff,
     'boathouse': boathouse,
-    'laundry_room': laundry_room
+    'laundry_room': laundry_room,
+    'tidepools': tidepools,
+    'grove': grove,
+    'tunnel': tunnel
 }
-
-player_name = intro()
-current_location = 'dock'
 
 while current_location != 'end':
     current_location = locations[current_location]()
+
