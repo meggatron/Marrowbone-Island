@@ -7,5 +7,12 @@ Day 1: pseudocode
 Instructor: Meghan Thréinfhir
 """
 
-#psuedocode
+# psuedocode
 
+# take a piece of paper
+# fold it in half
+
+# print ("Hello World")
+
+noun = input("Enter: ")
+verb =
