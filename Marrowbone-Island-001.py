@@ -13,6 +13,3 @@ Instructor: Meghan Thréinfhir
 # fold it in half
 
 # print ("Hello World")
-
-noun = input("Enter: ")
-verb =
