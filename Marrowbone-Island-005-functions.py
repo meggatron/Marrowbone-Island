@@ -36,7 +36,7 @@ def trail():
     time.sleep(0.5)
     print("Step 3...")
     time.sleep(0.5)
-    print(f"You are on a {random.choice(weather)} trail. Paths lead west into a forest or south back to the dock.")
+    print(f"You are on a {random.choice(weather)} trail. \nPaths lead west into a forest or south back to the dock.")
     move = input("Type 'west' or 'south'. > ").lower()
     if move == "west":
         return 'forest'
@@ -70,7 +70,7 @@ def forest():
 player_name = intro()
 current_location = 'dock'
 
-# main game loop (no dictionaries yet)
+# main game loop
 while True:
     if current_location == 'dock':
         current_location = dock()
