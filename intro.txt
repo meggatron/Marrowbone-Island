@@ -1,5 +1,5 @@
 You disembark from a ferry onto Marrowbone Island, just north of Seattle.
-The air smells of seaweed and secrets.
+   The air smells of seaweed and secrets.
 Some say a long-lost treasure lies buried here...
-Others say the island is haunted.
+    Others say the island is haunted.
 Either way, there's no turning back now.
