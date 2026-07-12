@@ -2,9 +2,11 @@
 Marrowbone Island
 University of Washington Youth & Teen Programs
 
-Day 1: pseudocode
+Day 1: pseudocode & more
 
 Instructor: Meghan Thréinfhir
+
+
 """
 
 # psuedocode
