@@ -2,16 +2,13 @@
 Marrowbone Island
 University of Washington Youth & Teen Programs
 
-Day 1: pseudocode & more
+Day 1: Hello world!
 
 Instructor: Meghan Thréinfhir
 
 
 """
 
-# psuedocode
 
-# take a piece of paper
-# fold it in half
 
-# print ("Hello World")
+
