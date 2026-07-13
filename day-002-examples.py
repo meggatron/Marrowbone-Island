@@ -1,6 +1,3 @@
-# Marrowbone Island – teaching excerpt
-# Written by Meghan Thréinfhir
-
 print("You disembark from a ferry onto Marrowbone Island.")
 
 name = input("What is your name, adventurer? ")
