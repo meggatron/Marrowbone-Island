@@ -7,6 +7,7 @@ Day 3: Control Flow & Data Structures
 Instructor: Meghan Thréinfhir
 """
 
+
 # import libraries so we can use their built-in functions
 import random
 import time
