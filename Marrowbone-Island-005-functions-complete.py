@@ -2,7 +2,7 @@
 Marrowbone Island
 University of Washington Youth & Teen Programs
 
-Day 4: algorithms & debugging
+Day 5: Functions
 
 Instructor: Meghan Thréinfhir
 """
