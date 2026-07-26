@@ -40,6 +40,6 @@ Students build the same game over two weeks, gradually introducing new Python co
 
 - `*-complete.py` — Completed instructor versions for each lesson
 - `intro.txt` — Intro text used for the file reading lesson
-- `notes.txt` — Instructor notes
+- `notes.txt` — Stores text for lesson on read/write
 - `teaching-files/` — Supplemental teaching materials
 - `Class 7 text files/` — Sample text files for file I/O activities
