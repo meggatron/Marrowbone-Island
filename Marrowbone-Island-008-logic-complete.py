@@ -49,9 +49,6 @@ def dock():
 def trail():
     log_room("trail")
     print("\nYou begin walking up the trail.")
-
-    # OPTIONAL TODAY:
-    # Replace repeated print statements with a for loop.
     for step in range(1, 4):
         print(f"Step {step}...")
         time.sleep(0.5)

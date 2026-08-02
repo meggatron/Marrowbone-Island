@@ -51,10 +51,9 @@ def trail():
     log_room("trail")
 
     print("\nYou begin walking up the trail.")
-
     for step in range(1, 4):
         print(f"Step {step}...")
-        time.sleep(0.1)
+        time.sleep(0.5)
 
     print(
         f"You are on a {random.choice(weather)} trail. "

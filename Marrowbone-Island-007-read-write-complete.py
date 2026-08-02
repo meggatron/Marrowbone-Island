@@ -34,12 +34,9 @@ def dock():
 def trail():
     log_room("trail")
     print("\nYou begin walking up the trail.")
-    print("Step 1...")
-    time.sleep(0.5)
-    print("Step 2...")
-    time.sleep(0.5)
-    print("Step 3...")
-    time.sleep(0.5)
+    for step in range(1, 4):
+        print(f"Step {step}...")
+        time.sleep(0.5)
     print(f"You are on a {random.choice(weather)} trail. Paths lead west into a forest or south back to the dock.")
     move = input("Type 'west' or 'south'. > ").lower()
     if move == "west":

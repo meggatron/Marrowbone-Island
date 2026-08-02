@@ -61,17 +61,9 @@ def trail():
     log_room("trail")
 
     print("\nYou begin walking up the trail.")
-
-    # OPTIONAL:
-    # Replace the repeated Step 1, Step 2, Step 3
-    # with a for loop.
-
-    print("Step 1...")
-    time.sleep(0.5)
-    print("Step 2...")
-    time.sleep(0.5)
-    print("Step 3...")
-    time.sleep(0.5)
+    for step in range(1, 4):
+        print(f"Step {step}...")
+        time.sleep(0.5)
 
     print(
         f"You are on a {random.choice(weather)} trail. Paths lead west into a forest, north to a cliff, or south back to the dock."

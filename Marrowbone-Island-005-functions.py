@@ -30,10 +30,17 @@ inventory = []
 # After defining intro(), call the function and store its
 # returned value in a variable named player_name.
 
+"""
 print("You disembark from a ferry onto Marrowbone Island.")
 name = input("What is your name, adventurer? > ")
 print(f"Welcome, {name}. Your quest begins now...")
+"""
 
+def intro():
+    print("You disembark from a ferry onto Marrowbone Island.")
+    name = input("What is your name, adventurer? > ")
+    print(f"Welcome, {name}. Your quest begins now...")
+    return name
 
 # Keep track of where the player currently is.
 current_location = "dock"
