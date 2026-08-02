@@ -78,7 +78,7 @@ def forest():
 
 
 # ==========================================================
-# TODO (Day 6):
+# TO DO (Day 6):
 # Create a dictionary called locations.
 #
 # The keys should be the location names:
