@@ -6,26 +6,33 @@ Day 8: Logic
 
 Instructor: Meghan Thréinfhir
 """
-# Marrowbone Island game updated with logic &  more
+
+# Use logic and other updates to finalize the game.
 
 import random
 import time
 
+
+# Create a list of possible weather conditions.
 weather = ["foggy", "rainy", "sunny"]
+
+# Create an empty inventory list.
 inventory = []
 
 
-# Read intro text from file
+# Read the introduction from intro.txt.
 def intro():
     with open("intro.txt", "r") as f:
         for line in f:
             print(line.strip())
+
     name = input("What is your name, adventurer? > ")
     print(f"Welcome, {name}. Your quest begins now...")
+
     return name
 
 
-# Append each room visit to a log file
+# Append each location visit to log.txt.
 def log_room(location):
     with open("log.txt", "a") as log:
         log.write(f"Entered {location}\n")
@@ -33,135 +40,159 @@ def log_room(location):
 
 def dock():
     log_room("dock")
-    print(f"\nYou are on a {random.choice(weather)} dock. Paths lead north to a trail.")
+
+    print(
+        f"\nYou are on a {random.choice(weather)} dock. "
+        "Paths lead north to a trail."
+    )
+
+    # Only offer the compass if the player has not already taken it.
+    if "compass" not in inventory:
+        print("You see a compass resting on a post.")
+        take = input("Take the compass? > ").lower()
+
+        if take == "yes":
+            inventory.append("compass")
+            print("You tuck the compass into your coat.")
+        else:
+            print("You leave the compass resting on the post.")
+    else:
+        print("The post is empty. You already took the compass.")
 
     move = input("Where do you go? > ").lower()
 
-    # NEW TODAY:
-    # Use OR so the player can type either "north" or "go north".
+    # Use or to accept two versions of the same command.
     if move == "north" or move == "go north":
-        return 'trail'
+        return "trail"
+
     else:
         print("Try typing 'north' or 'go north'.")
-        return 'dock'
+        return "dock"
 
 
 def trail():
     log_room("trail")
+
     print("\nYou begin walking up the trail.")
+
     for step in range(1, 4):
         print(f"Step {step}...")
         time.sleep(0.5)
 
     print(
-        f"You are on a {random.choice(weather)} trail. Paths lead west into a forest, north to a cliff, or south back to the dock."
+        f"You are on a {random.choice(weather)} trail. "
+        "Paths lead west into a forest, north to a cliff, "
+        "or south back to the dock."
     )
 
     move = input("Where do you go? > ").lower()
 
-    # NEW TODAY:
-    # Use OR so players can type either:
-    # "west" or "go west"
-    # "north" or "go north"
-    # "south" or "go south"
+    # Use or to accept two versions of each command.
     if move == "west" or move == "go west":
-        return 'forest'
-    elif move == "north" or move == "go north":
-        return 'cliff'
+        return "forest"
+
     elif move == "south" or move == "go south":
-        return 'dock'
+        return "dock"
+
+    elif move == "north" or move == "go north":
+        return "cliff"
+
     else:
         print("Try 'west', 'north', or 'south'.")
-        return 'trail'
+        return "trail"
 
 
 def forest():
     log_room("forest")
-    print(f"\nYou step into a {random.choice(weather)} forest. The trees are thick and mossy.")
 
+    print(
+        f"\nYou step into a {random.choice(weather)} forest. "
+        "The trees are thick and mossy."
+    )
+
+    # Only offer the map if the player has not already taken it.
     if "map" not in inventory:
-        take = input("You find a crumpled old map. Type 'yes' to take it. > ").lower()
+        take = input("You find a crumpled old map. Take it? > ").lower()
 
         if take == "yes":
             inventory.append("map")
             print("You take the map and tuck it into your coat.")
         else:
             print("You leave the map in the tree hollow.")
+
     else:
         print("The forest is quiet. You've already taken the map.")
 
-    print("You can go east to return to the trail.")
     move = input("Where do you go? > ").lower()
 
-    # NEW TODAY:
-    # Use OR so the player can type either "east" or "go east".
+    # Use or to accept two versions of the same command.
     if move == "east" or move == "go east":
-        return 'trail'
+        return "trail"
+
     else:
         print("Try typing 'east' or 'go east'.")
-        return 'forest'
+        return "forest"
 
 
-# NEW TODAY:
-# Add a new location function: cliff()
-# This is where the game can end.
 def cliff():
+    global player_name
+
     log_room("cliff")
-    print(
-        f"\nYou reach the edge of a {random.choice(weather)} cliff. "
-        "A strange chest is buried here, half-covered in moss and time."
-    )
 
-    # NEW TODAY:
-    # Use inventory logic to check whether the player has the map.
-    if "map" in inventory:
-        time.sleep(1)
-        print("You study the map one last time. The X marks a hollow beneath the old cedar.")
-        time.sleep(1)
-        print("Digging carefully, your fingers strike metal.")
-        time.sleep(1)
-        print("You pull free a rusted chest. Inside: silver coins, carved stones, and a locket still warm to the touch.")
-        time.sleep(1)
-        print("No one will believe what you’ve found here.")
-        time.sleep(1)
-        print("But the island remembers.")
-        time.sleep(1)
-        print("Congratulations, you win Marrowbone Island!")
+    print(f"\n{player_name}, you arrive at the edge of a steep cliff.")
 
-        # NEW TODAY:
-        # Return "end" to tell the main game loop to stop.
-        return 'end'
+    # Store the inventory checks as Boolean variables.
+    has_map = "map" in inventory
+    has_compass = "compass" in inventory
 
-    else:
-        print("The chest is here... but without the map, its meaning is lost.")
-        print("You can go south to return to the trail.")
+    # The player needs both items to win.
+    if has_map and has_compass:
+        print("The compass points toward the old cedar.")
+        print("The map reveals a hidden path down the cliff.")
+        print("Using both tools, you reach the buried treasure.")
+        print(f"Congratulations, {player_name}! You win Marrowbone Island!")
 
-        move = input("Where do you go? > ").lower()
+        return "end"
 
-        if move == "south" or move == "go south":
-            return 'trail'
-        else:
-            print("Try typing 'south' or 'go south'.")
-            return 'cliff'
+    # If the player has at least one item, tell them what is missing.
+    if has_map or has_compass:
+        print("You have part of what you need, but not everything.")
+
+        if not has_map:
+            print("You still need to find the map in the forest.")
+
+        if not has_compass:
+            print("You still need to find the compass at the dock.")
+
+        print("You return south to the trail.")
+
+        return "trail"
+
+    # If both Boolean variables are False, the player has neither item.
+    print("You have neither the map nor the compass.")
+    print("A damp note is wedged between two rocks.")
+    print("'You seem to have lost your way. Ask the shrimp in the laundry room for life advice,' it reads.")
+    print("You return south to the trail.")
+
+    return "trail"
 
 
-# Dictionary of location names mapped to functions
+# Dictionary of location names mapped to functions.
 locations = {
-    'dock': dock,
-    'trail': trail,
-    'forest': forest,
-
-    # NEW TODAY:
-    # Add the new cliff location here.
-    'cliff': cliff
+    "dock": dock,
+    "trail": trail,
+    "forest": forest,
+    "cliff": cliff
 }
 
 
-# Start the game
+# Start the game.
 player_name = intro()
-current_location = 'dock'
 
-# NEW TODAY:
-# Change the game loop so it stops when current_location is "end".
-while current_location != 'end':
+# Keep track of where the player currently is.
+current_location = "dock"
+
+
+# Continue running the game until a location returns "end".
+while current_location != "end":
     current_location = locations[current_location]()

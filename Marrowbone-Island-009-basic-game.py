@@ -11,20 +11,24 @@ import random
 import time
 
 
+# Global game data
 weather = ["foggy", "rainy", "sunny"]
 inventory = []
 
 
+# Read the introduction from intro.txt.
 def intro():
-    with open("intro.txt", "r") as file:
-        for line in file:
+    with open("intro.txt", "r") as f:
+        for line in f:
             print(line.strip())
 
     name = input("What is your name, adventurer? > ")
     print(f"Welcome, {name}. Your quest begins now...")
+
     return name
 
 
+# Record each room the player visits.
 def log_room(location):
     with open("log.txt", "a") as log:
         log.write(f"Entered {location}\n")
@@ -35,15 +39,28 @@ def dock():
 
     print(
         f"\nYou are on a {random.choice(weather)} dock. "
-        "A trail leads north."
+        "Paths lead north to a trail."
     )
+
+    if "compass" not in inventory:
+        print("You see a compass resting on a post.")
+        take = input("Take the compass? > ").lower()
+
+        if take == "yes":
+            inventory.append("compass")
+            print("You tuck the compass into your coat.")
+        else:
+            print("You leave the compass resting on the post.")
+    else:
+        print("The post is empty. You already took the compass.")
 
     move = input("Where do you go? > ").lower()
 
-    if move == "go north" or move == "north":
+    if move == "north" or move == "go north":
         return "trail"
+
     else:
-        print("Try typing 'go north' or 'north'.")
+        print("Try typing 'north' or 'go north'.")
         return "dock"
 
 
@@ -51,6 +68,7 @@ def trail():
     log_room("trail")
 
     print("\nYou begin walking up the trail.")
+
     for step in range(1, 4):
         print(f"Step {step}...")
         time.sleep(0.5)
@@ -63,12 +81,15 @@ def trail():
 
     move = input("Where do you go? > ").lower()
 
-    if move == "go west" or move == "west":
+    if move == "west" or move == "go west":
         return "forest"
-    elif move == "go north" or move == "north":
-        return "cliff"
-    elif move == "go south" or move == "south":
+
+    elif move == "south" or move == "go south":
         return "dock"
+
+    elif move == "north" or move == "go north":
+        return "cliff"
+
     else:
         print("Try 'west', 'north', or 'south'.")
         return "trail"
@@ -83,90 +104,79 @@ def forest():
     )
 
     if "map" not in inventory:
-        take = input(
-            "You find a crumpled old map. Take it? (yes/no) > "
-        ).lower()
+        take = input("You find a crumpled old map. Take it? > ").lower()
 
         if take == "yes":
             inventory.append("map")
             print("You take the map and tuck it into your coat.")
         else:
             print("You leave the map in the tree hollow.")
+
     else:
         print("The forest is quiet. You've already taken the map.")
 
-    print("You can go east to return to the trail.")
-
     move = input("Where do you go? > ").lower()
 
-    if move == "go east" or move == "east":
+    if move == "east" or move == "go east":
         return "trail"
+
     else:
-        print("Try typing 'east'.")
+        print("Try typing 'east' or 'go east'.")
         return "forest"
 
 
 def cliff():
+    global player_name
+
     log_room("cliff")
 
-    print(
-        f"\nYou reach the edge of a {random.choice(weather)} cliff. "
-        "A strange chest is buried here, half-covered in moss and time."
-    )
+    print(f"\n{player_name}, you arrive at the edge of a steep cliff.")
 
-    if "map" in inventory:
-        time.sleep(1)
-        print(
-            "You study the map one last time. "
-            "The X marks a hollow beneath the old cedar."
-        )
+    # Boolean variables make the logic easier to read.
+    has_map = "map" in inventory
+    has_compass = "compass" in inventory
 
-        time.sleep(1)
-        print("Digging carefully, your fingers strike metal.")
-
-        time.sleep(1)
-        print(
-            "You pull free a rusted chest. Inside: silver coins, "
-            "carved stones, and a locket still warm to the touch."
-        )
-
-        time.sleep(1)
-        print("No one will believe what you've found here.")
-
-        time.sleep(1)
-        print("But the island remembers.")
-
-        time.sleep(1)
-        print(
-            f"Congratulations, {player_name}! "
-            "You win Marrowbone Island!"
-        )
-
+    if has_map and has_compass:
+        print("The compass points toward the old cedar.")
+        print("The map reveals a hidden path down the cliff.")
+        print("Using both tools, you reach the buried treasure.")
+        print(f"Congratulations, {player_name}! You win Marrowbone Island!")
         return "end"
 
-    print("The chest is here... but without the map, its meaning is lost.")
-    print("You can go south to return to the trail.")
+    if has_map or has_compass:
+        print("You have part of what you need, but not everything.")
 
-    move = input("Where do you go? > ").lower()
+        if not has_map:
+            print("You still need to find the map in the forest.")
 
-    if move == "go south" or move == "south":
+        if not has_compass:
+            print("You still need to find the compass at the dock.")
+
+        print("You return to the trail.")
         return "trail"
-    else:
-        print("Try typing 'south'.")
-        return "cliff"
+
+    print("You have neither the map nor the compass.")
+    print("A damp note is wedged between two rocks.")
+    print("'You seem to have lost your way. Ask the shrimp in the laundry room for life advice,' it reads.")
+    print("You return to the trail.")
+
+    return "trail"
 
 
+# Dictionary of location names mapped to functions.
 locations = {
     "dock": dock,
     "trail": trail,
     "forest": forest,
-    "cliff": cliff,
+    "cliff": cliff
 }
 
 
+# Start the game.
 player_name = intro()
 current_location = "dock"
 
 
+# Main game loop.
 while current_location != "end":
     current_location = locations[current_location]()
